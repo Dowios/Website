@@ -52,11 +52,11 @@
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="post-heading">
-              <h1>尋找範本</h1>
-              <h2 class="subheading">製作解魔術方塊機器 #1</h2>
+              <h1>魔術方塊解法小釐清</h1>
+              <h2 class="subheading">製作解魔術方塊機器 #2</h2>
               <span class="meta">Posted by
                 <a href="#">Dowios</a>
-                on October 17, 2017</span>
+                on October 25, 2017</span>
             </div>
           </div>
         </div>
@@ -68,18 +68,33 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
-            <p>要開始做解魔術方塊機器的第一步：尋找範本。</p>
-            <p>我使用Python語言，所以我在Google上搜尋"python rubik's solver"。找到了這個網站：</p>
-            <a href="https://github.com/pglass/cube">Python Rubik's cube solver @ github</a>
-            <p>先將程式下載下來，與此同時，看一看作者在github的說明。</p>
-            <img class="img-fluid" src="img/post-sample-image.jpg" alt="">
-            <p>從這裡可以看到，作者將每一小塊魔術方塊都賦予了位置(x, y, z)和顏色(cx, cy, cz)的屬性。</p>
-            <img class="img-fluid" src="img/post-sample-image-2.jpg" alt="">
-            <img class="img-fluid" src="img/post-sample-image-3.jpg" alt="">
-            <p>這裡也可以看到這個程式的解法：從最前面的面，依序往後解。然後在最後也有一個Optimizer會簡化運算出來的步驟，以減少步數。</p>
-            <p>等到下載好了，就把下載下來的程式跑一次看看吧！記得要在資料夾裡面，用cmd指令執行。</p>
-            <img class="img-fluid" src="img/post-sample-image-4.jpg" alt="">
-            <p>看來可以順利執行。接下來就要來研究魔術方塊了。</p>
+            <p>網路上有許多解魔術方塊的方法，讓我們來看看這些步驟到底對魔術方塊有甚麼影響：</p>
+            <p>我們來看第三層的解法(採用<a href="http://www.davidguo.idv.tw/Cube/">這個網頁</a>的標示法)</p>
+            <img class="img-fluid" src="img/1025/notation.jpg" alt="">
+            <p>我們來把每一種解法的影響都畫出來看看。(CW=角塊順時針旋轉 | CC=角塊逆時針旋轉 | F=邊塊翻面)</p>
+            <p>I. 頂部轉出十字</p>
+            <img class="img-fluid" src="img/1025/二web.jpg" alt="">
+            <hr>
+            <img class="img-fluid" src="img/1025/二.jpg" alt="">
+            <hr>
+            <p>II. 翻三角(魚頭)</p>
+            <img class="img-fluid" src="img/1025/三web.jpg" alt="">
+            <hr>
+            <img class="img-fluid" src="img/1025/三-1.jpg" alt="">
+            <hr>
+            <img class="img-fluid" src="img/1025/三-2.jpg" alt="">
+            <hr>
+            <p>III. 換三角</p>
+            <img class="img-fluid" src="img/1025/四web.jpg" alt="">
+            <hr>
+            <img class="img-fluid" src="img/1025/四.jpg" alt="">
+            <hr>
+            <p>IV. 換三邊</p>
+            <img class="img-fluid" src="img/1025/三二web.jpg" alt="">
+            <hr>
+            <img class="img-fluid" src="img/1025/三二.jpg" alt="">
+            <hr>
+            <p>了解這些，可以使我們的程式設計的更有效率。我們不一定要讓程式去跑這麼多的轉動步驟，只要把結果確定了，直接用方塊交換的方法達到轉完後的結果。說不定可以增加效率。</p>
           </div>
         </div>
       </div>
