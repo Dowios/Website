@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>學習日誌</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="../css/clean-blog.min.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">我的學習日誌</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">首頁</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">關於我</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="masthead" style="background-image: url('../img/cube-bg.jpg')">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="post-heading">
+              <h1>Thistlethwaite's algorithm(1)</h1>
+              <h2 class="subheading">製作解魔術方塊機器</h2>
+              <span class="meta">Posted by
+                <a href="#">Dowios</a>
+                on January 3, 2017</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <p>我試著在Youtube找"Thistlethwaite's algorithm"，沒想到進行解說的影片非常少。就算有，很多也是畫質不好、收音也不好的影片。後來找到了這個網站：</p>
+            <a href="https://www.jaapsch.net/puzzles/thistle.htm">Jaap's Puzzle Page</a>
+            <p>一開始有點難讀懂，但之後就了解大致上的運作原理：</p>
+            <hr>
+            <p>魔術方塊分為四種型態：</p>
+            <h4>1.已解決 =>稱為G4</h4>
+            <h4>2.用L2, R2, U2, D2, F2, B2可歸位的魔術方塊 =>稱為G3</h4> 
+            <h4>3.用L, R, U2, D2, F2, B2可歸位的魔術方塊 =>稱為G2</h4> 
+            <h4>4.用L, R, U2, D2, F, B可歸位的魔術方塊 =>稱為G1</h4> 
+            <h4>5.用L, R, U, D, F, B可歸位的魔術方塊 =>稱為G0</h4> 
+            <p>而其中，G4包含在G3中，以此類推至G0。</p>
+            <p>我們的目的就是讓G0的方塊轉成G1，G1轉成G2，G2轉成G3，最後解決。</p>
+            <hr>
+            <p>先從步驟一開始看：</p>
+            <pre>
+Getting into G1.
+This involves edge pieces only, and is easy, for which reason no tables are given.</pre>
+            <p>第一階段只需處理邊塊。</p>
+            <pre>
+An edge piece is BAD if in taking it home an odd number of quarter-turns of U and D faces is needed;
+otherwise it is GOOD (note that badness is well-defined).</pre>
+            <p>簡單來講就是檢查12個邊塊是不是都可以用L, R, U2, D2, F, B就轉回原位。如果可以就是"GOOD"，否則就是"BAD"</p>
+            <pre>
+The reader may quickly work out a rule of thumb for deciding whether a piece is GOOD or BAD.
+Now quarter-turns of either U or D faces convert BAD pieces to GOOD and vice versa; other moves have no effect.
+Therefore to make all edge pieces GOOD, move groups of them to U or D face avoiding quarter-turns of U or D,
+and then cure them by performing a quarter-turn of U or D.</pre>
+            <p>由於GOOD和BAD的差別，其實只是需不需要用到U和D而已。所以只要將BAD的邊塊集中到U或D面，接著做一個U或D的四分之一轉，就可以將BAD變成GOOD。</p>
+            <pre>
+For example, if all twelve are BAD, DBFUR'L'D will cure them all!
+            </pre>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+              <li class="list-inline-item">
+                <a href="#">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <p class="copyright text-muted">Copyright &copy; Your Website 2017</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/popper/popper.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="../js/clean-blog.min.js"></script>
+
+  </body>
+
+</html>
