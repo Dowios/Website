@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>學習日誌</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="../css/clean-blog.min.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">我的學習日誌</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">首頁</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">關於我</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="masthead" style="background-image: url('../img/cube-bg.jpg')">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="post-heading">
+              <h1>製作顏色辨識</h1>
+              <h2 class="subheading">製作解魔術方塊機器</h2>
+              <span class="meta">Posted by
+                <a href="#">Dowios</a>
+                on January 10, 2017</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <p>開始製作顏色辨識時，遇到了兩個問題：</p>
+            <h4>1.如何感應色彩，並且在不同光源也能正確感應</h4>
+            <p>我先上網搜尋如何讀取像素色彩：</p>
+            <pre>
+hsv = cv2.cvtColor(Shooting_images,cv2.COLOR_BGR2HSV)
+px = hsv[x, y]
+# 接著就可以用px[0], px[1], px[2]來讀取像素的Hue, Saturation, Value</pre>
+            <p>接下來要如何指定要讀取的像素？我決定用點擊的方式。</p>
+            <pre>
+# in main program
+cv2.setMouseCallback('image',color_detect)
+
+# define new method
+def color_detect(event,x,y,flags,param):
+  if event == 1:
+    hsv = cv2.cvtColor(Shooting_images,cv2.COLOR_BGR2HSV)
+    px = hsv[y, x]</pre>
+            <p>在這裡寫hsv[y, x]而不是hsv[x, y]，是我在試驗後的結果。我不確定確切原因為何，但好像要將x跟y倒過來才能正確讀取。</p>
+            <p>關於如何「辨識」點擊到的顏色，我是用這種方法：</p>
+            <img class="img-fluid" src="../img/1070110/2.png">
+            <p>先點擊螢幕上的紅、橘、黃、綠、藍和白（結果為圖中的圓圈和黑點部分）。</p>
+            <p>接著取兩個黑點的中間值（黃點），形成顏色的範圍。只要讀取到的Hue在某兩個黃點中間，就會自動偵測為中間黑點的顏色。</p>
+            <p>至於白色，我只偵測他的Saturation（彩度），並在偵測後給予較寬的範圍好容納誤差（中間黃色圈）。</p>
+            <h4>2.如何開啟兩個攝影機</h4>
+            <pre>
+webcam = cv2.VideoCapture(2)
+webcam.release()
+webcam = cv2.VideoCapture(1)</pre> 
+            <p>接下來需要克服的是，兩個攝影機的亮度可能不同，需不需要重新校正。
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+              <li class="list-inline-item">
+                <a href="#">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <p class="copyright text-muted">Copyright &copy; Your Website 2017</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/popper/popper.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="../js/clean-blog.min.js"></script>
+
+  </body>
+
+</html>
